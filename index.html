@@ -399,7 +399,7 @@ body{
          var listLi=$(".collect ul li").length;
          nowListliNum--;
          if(listLi==0){
-            alert("您的收藏夹为空!")
+            alert("收藏empty!")
          }else{
             if(nowListliNum<=-1){
                nowListliNum=listLi-1;
@@ -447,7 +447,7 @@ body{
          var listLi=$(".collect ul li").length;
          nowListliNum++;
          if(listLi==0){
-            alert("您的收藏夹为空!");
+            alert("收藏empty!");
             $(".musicStop").trigger("click");
          }else{
             if(nowListliNum>=listLi){
@@ -505,7 +505,7 @@ body{
              //$(".musicInfo p:eq(0)").text()   //歌曲信息
              //$(".musicInfo p:eq(1)").text()   //歌手信息
              $(".collect").fadeIn(1000);
-             if(window.confirm("您确定收藏这首歌曲吗?")){
+             if(window.confirm("確定收藏?")){
                   $(".collect ul").append("<li><img src='musicBox/remove.png'><a>"+$(".musicInfo p:eq(0)").text()+"</a><span>"+$(".musicInfo p:eq(1)").text()+"</span></li>");        
              }else{
                   $(".DonTLike").animate({"opacity":"1"},400).delay(1500).animate({"opacity":"0"},400);
@@ -513,24 +513,24 @@ body{
          });
          //显示是否删除收藏夹音乐提示
          $(".likeThis").hover(function(){
-            $(".boxAllshow").text("收藏正在播放音乐").toggle();
+            $(".boxAllshow").text("收藏正在播放music").toggle();
          })
          /* 删除此音乐 */
          $(".collect ul li img").live('click',function(){
-            if(window.confirm("您确定删除吗?")){
+            if(window.confirm("確定刪除?")){
                 $(this).parent().remove();
             }
          })
          //是否删除所有收藏夹音乐
          $(".removeAll").click(function(){
-            if(window.confirm("您是否清空整个收藏夹?")){
+            if(window.confirm("清空收藏?")){
                 $(".collect ul").empty();
                 $(".collect").fadeOut(1000);
             }
          })
          //显示是否删除收藏夹音乐提示
          $(".removeAll").hover(function(){
-            $(".boxAllshow").text("将删除收藏夹音乐").toggle();
+            $(".boxAllshow").text("刪除收藏").toggle();
          })
          /* 收藏到的音乐 点击播放 */
          $(".collect ul li").live('click',function(){
@@ -551,7 +551,7 @@ body{
          })
          //鼠标悬浮提示
          $(".allMusicShow").hover(function(){
-            $(".boxAllshow").text("点击显示乐库歌曲").toggle();
+            $(".boxAllshow").text("顯示歌庫").toggle();
          })
          /* 点击所有的音乐 点击播放 */
          $(".allShow ul li").live('click',function(){
@@ -581,7 +581,7 @@ body{
             $("#myAudio").attr("loop","loop");
          })
          $(".randomPlay").hover(function(){
-            $(".musicBoxFooter p").text("随机播放").toggle();
+            $(".musicBoxFooter p").text("Random play").toggle();
          })
 -/* ----------点击单曲循环  切换到  列表循环   以及悬浮显示的提醒 ------------*/
          $(".onlyOnePlay").click(function(){//listP
@@ -599,7 +599,7 @@ body{
              },100);
          })
          $(".onlyOnePlay").hover(function(){
-            $(".musicBoxFooter p").text("单曲循环").toggle();
+            $(".musicBoxFooter p").text("Single cycle").toggle();
          })
 /*----------- 点击列表循环  切换到  顺序播放   以及悬浮显示的提醒 ----------*/
          $(".listPlay").click(function(){//inTurn
@@ -618,7 +618,7 @@ body{
             },100);
          })
          $(".listPlay").hover(function(){
-            $(".musicBoxFooter p").text("列表循环").toggle();
+            $(".musicBoxFooter p").text("list cycle").toggle();
          })
 /*------------ 点击顺序播放  切换到  随机播放   以及悬浮显示的提醒 --------------*/
          $(".orderPlay").click(function(){//randomP
@@ -637,7 +637,7 @@ body{
          });
          
          $(".orderPlay").hover(function(){
-            $(".musicBoxFooter p").text("顺序播放").toggle();
+            $(".musicBoxFooter p").text("In sequence").toggle();
          })
  
     })
