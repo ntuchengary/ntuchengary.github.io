@@ -1,235 +1,757 @@
-<!DOCTYPE html>
-<meta charset="utf-8" />
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-/>
-<link rel="shortcut icon" type="image/jpeg" href="data:," />
-<title>Music</title>
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-    font-size: 1rem;
-    font-family: system-ui, sans-serif;
-  }
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>personal_music.html</title>
 
-  .item {
-    padding: 0.5rem;
-    font-size: 1rem;
-    line-height: 1rem;
-    white-space: nowrap;
-  }
+<meta name="keywords" content="keyword1,keyword2,keyword3">
+<meta name="description" content="this is my page">
+<meta name="content-type" content="text/html; charset=UTF-8">
 
-  @media (pointer: fine) {
-    .item {
-      padding: 0.3rem;
-    }
-  }
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<style type="text/css">
+*{border:0;margin: 0;padding: 0}
+body{
+  background-image:url('image/element.jpg');
+  background-size:cover;
+}
+/* div main */
+.main{
+  padding: 50px 0px 0px 100px;
+}
+/* bar  */
+.musicBoxFooter a input[type='range']{
+  -webkit-appearance: none;
+  border-radius:20px;
+  cursor: pointer;
+  position: relative;
+  top:-5px;
+  width: 120px;
+  background:url('music_img/track.png')  no-repeat;
+  background-size:0% 100%;
+}
+/* bar roller */
+.musicBoxFooter input[type='range']::-webkit-slider-thumb {
+	-webkit-appearance: none;
+}
+/* bar  */
+.musicBoxFooter a input[type='range']::-webkit-slider-runnable-track {
+	height: 12px;
+    border-radius: 10px; /*round coner*/
+    box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; /*shadow*/
+}
+.musicBoxFooter input[type='range']:focus {
+	outline: none;
+}
+.musicBoxFooter a input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 12px;
+    width: 12px;
+    margin-top: 0px; /*使滑块超出轨道部分的偏移量相等*/
+    background: #ffffff; 
+    border-radius: 50%; /*外观设置为圆形*/
+    border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
+    box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
+    opacity:0.01;
+}
+/* 音乐盒子 */
+.musicBox{
+   width: 280px;
+   height:144px;
+   background-color: #404040;
+   border-radius: 12px;
+   box-shadow: 2px 2px black;
+}
 
-  .item:hover {
-    background-color: #eee;
-    cursor: pointer;
-  }
+/* 音乐盒 头部行块 */
+.musicHeader{
+   height: 40px;
+   line-height: 60px;
+   text-align: right;
+   padding: 0px 10px;
+}
+.musicHeader button{
+   display: inline-block;
+   width: 25px;
+   height:25px;
+   outline: 0;
+   cursor: pointer;
+}
+/* 顶部显示的内容 */
+.boxAllshow{
+   width: 130px;
+   line-height: 20px;
+   background-color: #36c;
+   font:15px '楷体';
+   color:#fff;
+   border-radius: 5px;
+   position:absolute;
+   left:245px;
+   top:45px;
+}
+.DonTLike{
+   position:absolute;
+   left:380px;top:60px;
+   font:14px '楷体';
+   width: 120px;
+   height:30px;
+   line-height: 30px;
+   background-color: #36c;
+   color:#fff;
+   border-radius: 5px;
+}
 
-  .folder::before {
-    content: "📁 ";
-  }
+/* 音乐盒身体行块 */
+.musicBoxBody{
+   height: 70px;
+   padding: 0px 10px; 
+}
+.musicBoxBody img{
+   border-radius: 70px;
+   cursor: pointer;
+}
+.musicBoxBody div{
+   display: inline-block;
+   color:white;
+   font-family: '华文楷体';
+   font-size:14px;
+   margin-left: 25px;
+   position: relative;
+   top:-12px;
+}
+.musicBoxBody div p{
+   display: block;
+   height:16px;
+   padding-left:20px;
+   overflow: hidden;
+}
+/* 音乐盒 脚部行块 */
+.musicBoxFooter{
+   padding: 10px 0px 10px 10px;
+   position: relative;
+}
+.musicBoxFooter button{
+   display: inline-block;
+   width: 20px;
+   height:20px;
+   background-color: #ccc;
+   outline: 0;
+   cursor: pointer;
+}
+/* 音量拖动条  外层div */
+.soundRange{
+   position:relative;
+   top:-58px;
+   left:176px;
+   
+   width: 90px;
+   height:20px;
+   line-height:18px;
+   background-color: #666;
+   border-radius: 3px;
+   transform: rotate(-90deg);
+   -ms-transform: rotate(-90deg);		
+   -webkit-transform: rotate(-90deg);
+   -o-transform: rotate(-90deg);		
+   -moz-transform: rotate(-90deg);
+   z-index: 0;
+}
 
-  .file::before {
-    content: "❓ ";
-  }
+/* 音量滑动条 */
+.soundRange input[type='range']{
+   width:60px;
+   margin-left:25px; 
+   -webkit-appearance: none;
+   border-radius:10px;
+   cursor: pointer;
+   background:url('music_img/track.png')  no-repeat;
+   background-size:0% 100%;
+}
+.soundRange>input[type='range']::-webkit-slider-runnable-track {
+	height: 10px;
+    border-radius: 10px; /*将轨道设为圆角的*/
+    box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; /*轨道内置阴影效果*/
+}
+/* -------------------音量拖动圆---------------------- */
+.soundRange input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 12px;
+    width: 12px;
+    margin-top: 0px; /*使滑块超出轨道部分的偏移量相等*/
+    background: #ffffff; 
+    border-radius: 50%; /*外观设置为圆形*/
+    border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
+    box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
+}
+/* 在鼠标悬浮在播放样式时显现的p标签  样式设计 */
+.musicBoxFooter p{
+   position: absolute;
+   top:-5px;
+   right:0px;
+   font:15px '楷体';
+   background-color: #fff;
+   border-radius: 3px;
+}
+/* 收藏音乐盒子 */
+.collect{
+   width: 280px;
+   height:340px;
+   padding:10px 0px;
+   background-color: #404040;
+   border-radius: 12px;
+   box-shadow: 1px 2px black;
+   font:16px '楷体';
+   overflow: auto;
+}
+.collect ul{
+   list-style-type: none;
+}
+.collect ul li{
+   height:30px;
+   line-height: 30px;
+   color:#22CF72;
+   border-radius: 12px;
+   cursor: pointer;
+   overflow: hidden;
+   border-bottom: 1px solid #88f; 
+   transition:background 1s linear;
+   }
+.collect ul li img{
+   position: relative;
+   left:10px;
+   top:3px;
+   width: 15px;
+   height:15px;
+   cursor: pointer;
+}
+.collect ul li a{
+   display: inline-block;
+   width: 150px;
+   padding-left: 20px;
+}
+.collect ul li:HOVER {
+	background-color: #B6C6D5;
+	color:#a11;
+}
+/* 数组所有音乐 */
+.allShow{
+   padding:10px 0px;
+   position:absolute;
+   right:584px;
+   top:50px;
+   width: 400px;
+   height:483px;
+   background-color: #404040;
+   border-radius: 5px;
+   box-shadow: 1px 2px black;
+   font:16px '楷体';
+   overflow: auto;
+}
+.allShow ul{
+   list-style-type: none;
+}
 
-  .music::before {
-    content: "🎵 ";
-  }
+.allShow ul li{
+   height:30px;
+   line-height: 30px;
+   color:#22CF72;
+   border-radius: 12px;
+   cursor: pointer;
+   overflow: hidden;
+   border-bottom: 1px solid #88f; 
+   transition:background 1s linear;
+   }
+.allShow ul li a{
+   display: inline-block;
+   width: 200px;
+   padding-left: 20px;
+}
+.allShow ul li i{
+   margin-left: 15px;
+}
+.allShow ul li:HOVER {
+	background-color: #B6C6D5;
+	color:#a11;
+}
+.personalShow{
+   position:absolute;
+   right:184px;
+   top:50px;
+   width: 370px;
+   height:473px;
+   background-color: #404040;
+   border-radius: 5px;
+   box-shadow: 1px 2px black;
+   font:16px '楷体';
+   color:#fff;
+   padding: 15px;
+}
+.sameInput{
+  margin-top: 20px;
+  text-indent:17px;
+  width: 50px;
+  border-radius: 20px;
+  outline:0;
+}
+.personalShow input[type='color']{
+  margin-top: 20px;
+}
+.personalShow input[type='button']{
+  width: 80px;
+  height:24px;
+  text-align: center;
+  background-color: #f99;
+  border-radius:15px;
+  outline:0;
+  margin-top: 20px;
+  cursor: pointer;
+  transition:background 1s linear;
+}
+.personalShow input[type='button']:HOVER{
+  background-color: #f66;
+  color:#fff;
+}
 
-  .picture::before {
-    content: "🖼 ";
-  }
-
-  .highlight,
-  .highlight:hover {
-    background-color: #eef;
-  }
-
-  #player {
-    background: #f1f3f4;
-    z-index: 1;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
-    width: 100%;
-    outline: 0;
-  }
-
-  #list {
-    position: fixed;
-    top: 0;
-    bottom: 54px;
-    left: 0;
-    right: 0;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .icon {
-    display: inline-block;
-    width: 1em;
-    height: 1em;
-    stroke-width: 0;
-    stroke: currentColor;
-    fill: currentColor;
-  }
+/* 滚动条样式 */
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+    width: 12px;
+}
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    overflow: hidden;
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: rgba(255,227,132,0.5);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(255,0,0,0.4);
+}
 </style>
-
-<audio id="player" autoplay loop controls></audio>
-
-<div id="list">Loading...</div>
-
-<script>
-  const player = document.querySelector("#player");
-
-  const folderNodeUp = function (event) {
-    if (event.which === 1) {
-      history.pushState(null, null, `${window.location.pathname}${this.textContent}/`);
-      getListing();
-    } else if (event.which === 2) {
-      window.open(`${window.location.pathname}${this.textContent}/`);
-    }
-  };
-
-  const fileNodeUp = function (event) {
-    if (event.which === 1 || event.which === 2) {
-      window.open(`/file${window.location.pathname}${this.textContent}`);
-    }
-  };
-
-  const musicNodeUp = function (event) {
-    if (event.which === 2) {
-      window.open(`/file${window.location.pathname}${this.textContent}`);
-      return;
-    }
-    if (event.which !== 1) return;
-    if (document.querySelector(".highlight")) {
-      document.querySelector(".highlight").classList.remove("highlight");
-    }
-    this.classList.add("highlight");
-    player.src = `/file${window.location.pathname}${this.textContent}`;
-    player.load();
-    document.title = this.textContent;
-    if (!"mediaSession" in navigator) return;
-    navigator.mediaSession.metadata = new MediaMetadata({
-      title: this.textContent.slice(0, -4),
-      artist: "",
-      album: decodeURI(window.location.pathname).split("/").slice(-2)[0],
-      artwork: [
-        {
-          src: `/file${window.location.pathname}cover.jpg`,
-          sizes: "500x500",
-          type: "image/jpeg",
-        },
-      ],
-    });
-    navigator.mediaSession.setActionHandler("play", () => {
-      player.play();
-    });
-    navigator.mediaSession.setActionHandler("pause", () => {
-      player.pause();
-    });
-    navigator.mediaSession.setActionHandler("seekbackward", () => {
-      player.currentTime = player.currentTime - 5;
-    });
-    navigator.mediaSession.setActionHandler("seekforward", () => {
-      player.currentTime = player.currentTime + 5;
-    });
-    navigator.mediaSession.setActionHandler("previoustrack", () => {
-      document.querySelector(".highlight").previousSibling.onmouseup({ which: 1 });
-    });
-    navigator.mediaSession.setActionHandler("nexttrack", () => {
-      document.querySelector(".highlight").nextSibling.onmouseup({ which: 1 });
-    });
-  };
-
-  const getListing = async () => {
-    const clearListTimer = setTimeout(() => {
-      document.body.removeChild(document.querySelector("#list"));
-      const listNode = document.createElement("div");
-      listNode.id = "list";
-      listNode.style.bottom = getComputedStyle(player).height;
-      listNode.appendChild(document.createTextNode("Loading..."));
-      document.body.appendChild(listNode);
-    }, 200);
-
-    const fileList = await fetch(`/api${window.location.pathname}`).then((res) => res.json());
-
-    clearTimeout(clearListTimer);
-    document.body.removeChild(document.querySelector("#list"));
-    const listNode = document.createElement("div");
-    listNode.id = "list";
-    listNode.style.bottom = getComputedStyle(player).height;
-
-    for (const { type, name } of fileList.sort((a, b) => new Date(b.mtime) - new Date(a.mtime))) {
-      const itemNode = document.createElement("div");
-      itemNode.classList.add("item");
-      if (
-        [".mp3", "flac", ".m4a", ".ogg", ".wav", "opus"].includes(name.substr(-4).toLowerCase())
-      ) {
-        itemNode.classList.add("music");
-        itemNode.onmouseup = musicNodeUp;
-      } else if (type === "directory" || type === "other") {
-        itemNode.classList.add("folder");
-        itemNode.onmouseup = folderNodeUp;
-      } else if ([".jpg", ".png", ".bmp"].includes(name.substr(-4).toLowerCase())) {
-        itemNode.classList.add("picture");
-        itemNode.onmouseup = fileNodeUp;
-      } else {
-        itemNode.classList.add("file");
-        itemNode.onmouseup = fileNodeUp;
-      }
-      itemNode.appendChild(document.createTextNode(name));
-      listNode.appendChild(itemNode);
-    }
-
-    document.body.appendChild(listNode);
-  };
-  getListing();
-  window.onpopstate = getListing;
-
-  window.onkeyup = function (event) {
-    let seek = 5;
-    if (event.ctrlKey) {
-      seek = 30;
-    }
-    if (event.which === 32) {
-      player.src && player.paused ? player.play() : player.pause();
-    }
-    if (event.which === 37) {
-      player.currentTime = player.currentTime < seek ? 0 : player.currentTime - seek;
-    }
-    if (event.which === 39) {
-      player.currentTime =
-        player.duration - player.currentTime < seek ? player.duration : player.currentTime + seek;
-    }
-    if (event.which === 38) {
-      player.volume = player.volume > 0.9 ? 1 : player.volume + 0.1;
-    }
-    if (event.which === 40) {
-      player.volume = player.volume < 0.1 ? 0 : player.volume - 0.1;
-    }
-  };
-
-  window.onkeydown = function (event) {
-    if ([32, 37, 38, 39, 40].includes(event.which)) {
-      event.preventDefault();
-    }
-  };
-
-  player.onended = function () {
-    if (player.loop) return;
-    document.querySelector(".highlight").nextSibling.onmouseup({ which: 1 });
-  };
+<script type="text/javascript" src="jQuery/jquery-1.6.4.min.js"></script>
+<script type="text/javascript">
+   $(function(){
+      $(".orderPlay").trigger("click");
+      var musicList=["黃霄雲-星辰大海.mp3","程響- 四季予你.mp3","動力火車-天黑請閉眼.mp3","太空人.wma"];
+      var musicStar=["黃霄雲","程響","顏志琳","吳青峰"];
+      var myAudio=document.getElementById("myAudio");
+      myAudio.volume=document.getElementById("soundRange").value/100;
+      var nowMusicNum=1;
+	  var totalNum=2;
+      //默认播放第一首歌曲
+      $("#myAudio source").attr("src","music/"+(musicList[nowMusicNum])+"");
+      //默认显示第一首歌曲的信息
+      $(".musicInfo p:eq(0)").text(musicList[nowMusicNum]);/* 歌曲信息 */
+      $(".musicInfo p:eq(1)").text(musicStar[nowMusicNum]);/* 歌手信息 */
+      /* 点击播放时播放音乐 */
+      $(".musicPlay").click(function(){
+         $(this).hide();
+         $(".musicStop").show();
+         myAudio.play();
+         /* ------------------同步进度条-------------------- */
+         setInterval(function(){
+             var myAudio=document.getElementById("myAudio");   //抓住音乐播放器
+             var musicRange=document.getElementById("musicRange");  //抓住音乐进度条
+             var ValueTime=(myAudio.currentTime/myAudio.duration)*100;
+             document.getElementById("musicRange").value=ValueTime;
+             musicRange.style.backgroundSize=ValueTime+"% 100%";},1000); 
+      })
+      $(".musicStop").click(function(){
+         $(this).hide();
+         $(".musicPlay").show();
+         myAudio.pause();
+      });
+      
+      /* 点击上一首时切换音乐 */
+      $(".musicPrev").click(function(){
+         nowMusicNum--;
+         
+         if(nowMusicNum<0){
+         nowMusicNum=totalNum;
+         }
+         $("#myAudio source").attr("src","music/"+(musicList[nowMusicNum])+"");/* 歌曲链接 */
+         $(".musicInfo p:eq(0)").text(musicList[nowMusicNum]);/* 歌曲信息 */
+         $(".musicInfo p:eq(1)").text(musicStar[nowMusicNum]);/* 歌手信息 */
+         
+         myAudio.load();
+         $(".musicPlay").trigger("click");
+      });
+      //在随机播放时的上一首按钮
+      $(".musicPrev2").click(function(){
+         var randomNum=Math.random();
+         var randomMusicNum=randomNum*musicList.length;
+         var nowPlayNum=Math.floor(randomMusicNum);
+         $("#myAudio source").attr("src","music/"+(musicList[nowPlayNum])+"");/* 歌曲链接 */
+         $(".musicInfo p:eq(0)").text(musicList[nowPlayNum]);/* 歌曲信息 */
+         $(".musicInfo p:eq(1)").text(musicStar[nowPlayNum]);/* 歌手信息 */
+  
+         myAudio.load();
+         $(".musicPlay").trigger("click");
+      });
+      /* 列表循环下的上一首 */
+      
+      var nowListliNum=0;
+      $(".musicPrev3").click(function(){
+         var listLi=$(".collect ul li").length;
+         nowListliNum--;
+         if(listLi==0){
+            alert("您的收藏夹为空!")
+         }else{
+            if(nowListliNum<=-1){
+               nowListliNum=listLi-1;
+               }
+               var musicSrc=$(".collect ul li").eq(nowListliNum).children("a").text();
+               $("#myAudio source").attr("src","music/"+musicSrc+"");
+               
+               $(".musicInfo p:eq(0)").text($(".collect ul li").eq(nowListliNum).children("a").text())
+               $(".musicInfo p:eq(1)").text($(".collect ul li").eq(nowListliNum).children("span").text())
+         }
+         myAudio.load();
+         $(".musicStop").trigger("click");
+      });
+      
+      /* 点击下一首时切换音乐 */
+      $(".musicNext").click(function(){
+         nowMusicNum++;
+         
+         if(nowMusicNum>totalNum){
+         nowMusicNum=0;
+         }
+         
+         $("#myAudio source").attr("src","music/"+(musicList[nowMusicNum])+"");/* 歌曲链接 */
+         $(".musicInfo p:eq(0)").text(musicList[nowMusicNum]);/* 歌曲信息 */
+         $(".musicInfo p:eq(1)").text(musicStar[nowMusicNum]);/* 歌手信息 */
+         
+         myAudio.load();
+         $(".musicPlay").trigger("click");
+      });
+      //随机播放时的下一首按钮
+      
+      $(".musicNext2").click(function(){
+         var randomNum=Math.random();
+         var randomMusicNum=randomNum*musicList.length;
+         var nowPlayNum=Math.floor(randomMusicNum);
+         $("#myAudio source").attr("src","music/"+(musicList[nowPlayNum])+"");/* 歌曲链接 */
+         $(".musicInfo p:eq(0)").text(musicList[nowPlayNum]);/* 歌曲信息 */
+         $(".musicInfo p:eq(1)").text(musicStar[nowPlayNum]);/* 歌手信息 */      
+         myAudio.load();
+         $(".musicPlay").trigger("click");
+      });
+      
+      /* 列表循环下的xia一首 */
+      $(".musicNext3").click(function(){
+         var listLi=$(".collect ul li").length;
+         nowListliNum++;
+         if(listLi==0){
+            alert("您的收藏夹为空!");
+            $(".musicStop").trigger("click");
+         }else{
+            if(nowListliNum>=listLi){
+               nowListliNum=0;
+               }
+               var musicSrc=$(".collect ul li").eq(nowListliNum).children("a").text();
+               $("#myAudio source").attr("src","music/"+musicSrc+"");
+               
+               $(".musicInfo p:eq(0)").text($(".collect ul li").eq(nowListliNum).children("a").text())
+               $(".musicInfo p:eq(1)").text($(".collect ul li").eq(nowListliNum).children("span").text())
+               myAudio.load();
+               $(".musicPlay").trigger("click");
+         } 
+      });
+      
+         /* 点击音量切换到静音 */
+         $(".musicSound").click(function(){
+            $(this).hide()
+            $(".musicMute").show();
+            myAudio.muted=true;
+            document.getElementById("soundRange").value=0;
+            myAudio.volume=0;
+         })
+         /* 点击静音切换到音量 */
+         $(".musicMute").click(function(){
+            $(this).hide()
+            $(".musicSound").show();
+            myAudio.muted=false;
+            document.getElementById("soundRange").value=40;
+            myAudio.volume=0.4;
+         })
+         /* 鼠标悬浮在音量图标上时显示音量条 */
+         $(".musicMute,.musicSound,.soundRange").hover(function(){
+            $(".soundRange").toggle();
+         })
+         
+         /* 改变音量 */
+         $(".soundRange input[type='range']").mousemove(function(){
+             myAudio.volume=document.getElementById("soundRange").value/100;
+             if(myAudio.volume==0){
+                $(".musicSound").hide();
+                $(".musicMute").show();
+             }else{
+                $(".musicSound").show();
+                $(".musicMute").hide();
+             }
+         });
+         /* 在静音下改变音量后变为非静音状态 */
+         $(".soundRange input[type='range']").change(function(){
+             myAudio.muted=false;
+         })
+         
+         /* 收藏音乐 */
+         $(".likeThis").click(function(){
+             //$(".musicInfo p:eq(0)").text()   //歌曲信息
+             //$(".musicInfo p:eq(1)").text()   //歌手信息
+             $(".collect").fadeIn(1000);
+             if(window.confirm("您确定收藏这首歌曲吗?")){
+                  $(".collect ul").append("<li><img src='musicBox/remove.png'><a>"+$(".musicInfo p:eq(0)").text()+"</a><span>"+$(".musicInfo p:eq(1)").text()+"</span></li>");        
+             }else{
+                  $(".DonTLike").animate({"opacity":"1"},400).delay(1500).animate({"opacity":"0"},400);
+             }
+         });
+         //显示是否删除收藏夹音乐提示
+         $(".likeThis").hover(function(){
+            $(".boxAllshow").text("收藏正在播放音乐").toggle();
+         })
+         /* 删除此音乐 */
+         $(".collect ul li img").live('click',function(){
+            if(window.confirm("您确定删除吗?")){
+                $(this).parent().remove();
+            }
+         })
+         //是否删除所有收藏夹音乐
+         $(".removeAll").click(function(){
+            if(window.confirm("您是否清空整个收藏夹?")){
+                $(".collect ul").empty();
+                $(".collect").fadeOut(1000);
+            }
+         })
+         //显示是否删除收藏夹音乐提示
+         $(".removeAll").hover(function(){
+            $(".boxAllshow").text("将删除收藏夹音乐").toggle();
+         })
+         /* 收藏到的音乐 点击播放 */
+         $(".collect ul li").live('click',function(){
+            var musicSrc=$(this).children("a").text();
+            $("#myAudio source").attr("src","music/"+musicSrc+"");
+            
+            $(".musicInfo p:eq(0)").text($(this).children("a").text())
+            $(".musicInfo p:eq(1)").text($(this).children("span").text())
+            
+            myAudio.load();
+            $(".musicPlay").trigger("click");
+         });
+         /* 点击显示全部音乐时 */
+         $(".allMusicShow").toggle(function(){
+            $(".allShow").fadeIn(1000);
+         },function(){
+            $(".allShow").fadeOut(1000);
+         })
+         //鼠标悬浮提示
+         $(".allMusicShow").hover(function(){
+            $(".boxAllshow").text("点击显示乐库歌曲").toggle();
+         })
+         /* 点击所有的音乐 点击播放 */
+         $(".allShow ul li").live('click',function(){
+            var musicSrc=$(this).children("a").text();
+            $("#myAudio source").attr("src","music/"+musicSrc+"");
+            
+            $(".musicInfo p:eq(0)").text($(this).children("a").text())
+            $(".musicInfo p:eq(1)").text($(this).children("span").text())
+            
+            myAudio.load();
+            $(".musicPlay").trigger("click");
+         });
+         for(var i=0;i<42;i++){
+                (function(k){
+                    $(".allShow ul").append("<li><i>"+(i+1)+".</i><a>"+musicList[i]+"</a><span>"+musicStar[i]+"</span>")
+                })(i)
+            }
+/*------------ 点击随机播放    切换到    单曲循环     以及悬浮显示的提醒   ---------------*/
+         $(".randomPlay").click(function(){//inTurn
+            $(".MusicPlayStyle").hide().eq(1).show();
+            $(".randomP").show();       //将数组中的歌曲   随机取得数据然后  单曲循环  播放
+            $(".inTurn").hide();          
+            $(".listP").hide();
+            //清除随机播放切换到下一首的定时器
+            clearInterval(randomTime1);
+            //给音乐播放器添加loop属性   使其单曲循环
+            $("#myAudio").attr("loop","loop");
+         })
+         $(".randomPlay").hover(function(){
+            $(".musicBoxFooter p").text("随机播放").toggle();
+         })
+-/* ----------点击单曲循环  切换到  列表循环   以及悬浮显示的提醒 ------------*/
+         $(".onlyOnePlay").click(function(){//listP
+            $(".MusicPlayStyle").hide().eq(2).show();
+            $(".randomP").hide();
+            $(".inTurn").hide();
+            $(".listP").show();         //将收藏夹中的的歌曲   循环  播放
+            //切换到列表循环时要去除loop属性,不让其单曲循环
+            $("#myAudio").removeAttr("loop");
+            //添加定时器,按照列表循环播放
+            listTime=setInterval(function(){
+             if(myAudio.currentTime==myAudio.duration){
+                 $(".musicNext3").trigger("click");
+             }
+             },100);
+         })
+         $(".onlyOnePlay").hover(function(){
+            $(".musicBoxFooter p").text("单曲循环").toggle();
+         })
+/*----------- 点击列表循环  切换到  顺序播放   以及悬浮显示的提醒 ----------*/
+         $(".listPlay").click(function(){//inTurn
+            $(".MusicPlayStyle").hide().eq(3).show();
+            $(".randomP").hide();
+            $(".inTurn").show();       //将数组中的歌曲  循环  播放
+            $(".listP").hide();
+            //清除列表循环的定时器  下一首
+            clearInterval(listTime);
+            
+            /* 顺序播放的定时器 */
+            InTurnTime=setInterval(function(){
+             if(myAudio.currentTime==myAudio.duration){
+                 $(".musicNext").trigger("click");
+               }
+            },100);
+         })
+         $(".listPlay").hover(function(){
+            $(".musicBoxFooter p").text("列表循环").toggle();
+         })
+/*------------ 点击顺序播放  切换到  随机播放   以及悬浮显示的提醒 --------------*/
+         $(".orderPlay").click(function(){//randomP
+            $(".MusicPlayStyle").hide().eq(0).show();
+            $(".randomP").show();      //将数组中的歌曲  取得数据然后  循环  播放
+            $(".inTurn").hide();
+            $(".listP").hide();
+            //清除顺序播放的定时器  不让其按顺序继续播放
+            clearInterval(InTurnTime);
+            //切换定时器
+            randomTime1=setInterval(function(){
+             if(myAudio.currentTime==myAudio.duration){
+                 $(".musicNext2").trigger("click");
+               }
+            },100);     
+         });
+         
+         $(".orderPlay").hover(function(){
+            $(".musicBoxFooter p").text("顺序播放").toggle();
+         })
+ 
+    })
+    
+    /* ------------------同步进度条-------------------- */ 
+     function nowPlay(){
+        var musicRange=document.getElementById("musicRange");
+        musicRange.style.backgroundSize=musicRange.value+"% 100%";
+        myAudio.currentTime=musicRange.value*myAudio.duration/100;
+     }
 </script>
+</head>
+
+	<div class="main">
+		<!-- 存放音乐播放器 -->
+		<div>
+			<audio id="myAudio">
+			   <source>
+			</audio>
+		</div>
+		<div class="musicBox" style="opacity:0.9;">
+		     <div class="musicHeader">
+		          <div class="boxAllshow" style="display: none;white-space: nowrap;">
+		                                            
+		          </div>
+		          <button class="removeAll" style="background: url('musicBox/remove.png') center no-repeat;"></button>
+		          <button class="allMusicShow" style="background:url('musicBox/send.png') center no-repeat;"></button>
+		          <button class="likeThis" style="background:url('musicBox/like.png') center no-repeat;"></button>
+		          <div class="DonTLike" style="opacity:0;z-index: 10;">
+		                                              您已取消该收藏...
+		          </div>
+		     </div>
+		     <div class="musicBoxBody">
+		          <img src="musicBox/personal.png" width="70px" height="70px">
+		          <div class="musicInfo">
+		                                         歌曲信息:
+		              <p style="background: url('musicBox/musicInfo.png') 0px 3px no-repeat;cursor: default;"></p>
+		              <p style="background: url('musicBox/musicStar.png') 0px 3px no-repeat;cursor: default;"></p>
+		          </div>
+		          <div class="actOrSta" style="position: absolute;top:130px;left:350px">
+		             <img src="music_img/o_ab.png" style="position: absolute;top:0px;right:20px;">
+		             <img src="music_img/o_ac.gif" style="position: absolute;top:0px;right:20px;display: none">
+		          </div>
+		     </div>
+		     <div class="musicBoxFooter">
+		         <!-- 数组顺序 --><button class="inTurn musicPrev" style="display:none;background: url('musicBox/musicPrev.png') center no-repeat;"></button>
+		         <!-- 列表顺序 --><button class="listP musicPrev3" style="display:none;background: url('musicBox/musicPrev.png') center no-repeat;"></button>
+		         <!-- 数组随机 --><button class="randomP musicPrev2" style="background: url('musicBox/musicPrev.png') center no-repeat;"></button>
+		               <button class="musicStop" style="background: url('musicBox/musicStop.png') center no-repeat;display: none;"></button>
+		               <button class="musicPlay" style="background: url('musicBox/musicPlay.png') center no-repeat;"></button>
+		         <!-- 数组顺序 --><button class="inTurn musicNext" style="display:none;background: url('musicBox/musicNext.png') center no-repeat;"></button>
+		         <!-- 列表顺序 --><button class="listP musicNext3" style="display:none;background: url('musicBox/musicNext.png') center no-repeat;"></button>
+		         <!-- 数组随机--><button class="randomP musicNext2" style="background: url('musicBox/musicNext.png') center no-repeat;"></button>
+		               
+		               <a style="height:10px;border-radius:10px;background-color: #fff;display: inline-block;"><input id="musicRange" type="range" onchange="nowPlay()"></a>
+		               
+		               <button class="musicSound" style="position:relative;z-index:2;background: url('musicBox/musicSound.png') center no-repeat;"></button>
+		               <button class="musicMute" style="position:relative;z-index:2;background: url('musicBox/musicMute.png') center no-repeat;display: none;"></button> 
+		               <button class="MusicPlayStyle randomPlay" style="background: url('musicBox/随机播放.png') center no-repeat;"></button>
+		               <button class="MusicPlayStyle onlyOnePlay" style="background: url('musicBox/单曲循环.png') center no-repeat;display: none;"></button>
+		               <button class="MusicPlayStyle listPlay" style="background: url('musicBox/列表循环.png') center no-repeat;display: none;"></button>
+		               <button class="MusicPlayStyle orderPlay" style="background: url('musicBox/顺序播放.png') center no-repeat;display: none;"></button>
+		               <p style="display: none;"></p>
+		               <div class="soundRange" style="display: none">
+		                    <input type="range" id="soundRange">
+		               </div>
+		     </div>
+		</div>
+		<div class="collect" style="display: none;">
+		    <ul>
+		        
+		    </ul>
+		</div>
+		<div class="allShow" style="display: none;">
+		   <ul>
+		      
+		   </ul>
+		</div>
+		<div class="personalShow" style="display: none;opacity:0.8;">
+		    <p style="position: absolute;top:0px;right:10px;font:20px '微软雅黑';cursor: pointer;">x</p>
+		    <p>个人资料</p>
+		    <div style="position: absolute;right: 50px;top:50px;">
+		        <img src="musicBox/personal.png" width="70px" height="70px" style="border-radius:35px;">
+		        <p id="changeHeadImg" style="cursor: pointer;display:block;padding: 5px 10px;border: 1px #ccc solid;border-radius: 10px;">更多头像</p>
+		    </div>
+		    <form action="">
+		       <label>昵称:</label><input class="readOnly sameInput" type="text" value='枫' required="required" maxlength="2"><br>
+		       <label>性别:</label><input class="readOnly sameInput" type="text" value='男' maxlength="1"><br>
+		       <label>年龄:</label><input class="readOnly sameInput" type="number" value="22" maxlength="2"><br>
+		       <label>邮箱:</label><input class="readOnly " style="margin-top: 20px" type="email" required="required"><br>
+		       <label>个人网站:</label><input class="readOnly" style="margin-top: 20px" type="url" required="required"><br>
+               <label>喜欢的颜色:</label><input class="readOnly" type="color"><br>
+               <label>时间:</label><input class="readOnly" style="margin-top: 20px" type="date"><br>
+               <label style="display:inline-block;margin:20px 0px;">个人信息:</label><br>
+               <textarea class="readOnly" rows="5" cols="50" style="text-indent:5px;;resize:none;overflow: scroll;"></textarea><br>
+               <input type="button" class="save" value="保存">
+               <input type="button" class="changeIt" value="修改">
+		    </form>    
+		</div>
+		<div class="HeadImgBox" style="display: none">
+		     <p style="position: absolute;top:0px;right:5px;font:20px '微软雅黑';cursor: pointer;">x</p>
+		     <img src="musicBox/personal.png" width="70px" height="70px">
+		     <img src="musicBox/head1.jpg" width="70px" height="70px">
+		     <img src="musicBox/head2.jpg" width="70px" height="70px">
+		     <img src="musicBox/head3.jpg" width="70px" height="70px">
+		     <img src="musicBox/head4.jpg" width="70px" height="70px">
+		     <img src="musicBox/head5.jpg" width="70px" height="70px">
+		     <img src="musicBox/head6.jpg" width="70px" height="70px">
+		     <img src="musicBox/head7.jpg" width="70px" height="70px">
+		     <img src="musicBox/head8.jpg" width="70px" height="70px">
+		     <img src="musicBox/head9.jpg" width="70px" height="70px">
+		     <img src="musicBox/head10.jpg" width="70px" height="70px">
+		     <img src="musicBox/head11.jpg" width="70px" height="70px">
+		</div>
+	</div>
+</body>
+</html>
