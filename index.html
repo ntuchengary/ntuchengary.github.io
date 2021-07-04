@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <title>personal_music.html</title>
@@ -336,12 +336,12 @@ body{
 <script type="text/javascript">
    $(function(){
       $(".orderPlay").trigger("click");
-      var musicList=["黃霄雲-星辰大海.mp3","程響- 四季予你.mp3","動力火車-天黑請閉眼.mp3","太空人.mp3"];
+      var musicList=["黃霄雲-星辰大海.mp3","程響- 四季予你.mp3","天黑請閉眼.mp3","太空人.mp3"];
       var musicStar=["黃霄雲","程響","顏志琳","吳青峰"];
       var myAudio=document.getElementById("myAudio");
       myAudio.volume=document.getElementById("soundRange").value/100;
-      var nowMusicNum=1;
-	  var totalNum=2;
+      var nowMusicNum=0;
+	  var totalNum=3;
       //默认播放第一首歌曲
       $("#myAudio source").attr("src","music/"+(musicList[nowMusicNum])+"");
       //默认显示第一首歌曲的信息
@@ -398,8 +398,8 @@ body{
       $(".musicPrev3").click(function(){
          var listLi=$(".collect ul li").length;
          nowListliNum--;
-         if(listLi==0){
-            alert("收藏empty!")
+         if(listLi==0){/* no收藏 */
+			alert("收藏為空")
          }else{
             if(nowListliNum<=-1){
                nowListliNum=listLi-1;
@@ -446,9 +446,8 @@ body{
       $(".musicNext3").click(function(){
          var listLi=$(".collect ul li").length;
          nowListliNum++;
-         if(listLi==0){
-            alert("收藏empty!");
-            $(".musicStop").trigger("click");
+         if(listLi==0){/* no收藏 */
+		 alert("收藏為空")
          }else{
             if(nowListliNum>=listLi){
                nowListliNum=0;
@@ -551,7 +550,10 @@ body{
          })
          //鼠标悬浮提示
          $(".allMusicShow").hover(function(){
-            $(".boxAllshow").text("顯示歌庫").toggle();
+            $(".boxAllshow").text("顯示中文歌庫").toggle();
+         })
+		 $(".allMusicShowen").hover(function(){
+            $(".boxAllshow").text("顯示英文歌庫").toggle();
          })
          /* 点击所有的音乐 点击播放 */
          $(".allShow ul li").live('click',function(){
@@ -564,7 +566,7 @@ body{
             myAudio.load();
             $(".musicPlay").trigger("click");
          });
-         for(var i=0;i<42;i++){
+         for(var i=0;i<totalNum+1;i++){
                 (function(k){
                     $(".allShow ul").append("<li><i>"+(i+1)+".</i><a>"+musicList[i]+"</a><span>"+musicStar[i]+"</span>")
                 })(i)
@@ -665,6 +667,7 @@ body{
 		          </div>
 		          <button class="removeAll" style="background: url('musicBox/remove.png') center no-repeat;"></button>
 		          <button class="allMusicShow" style="background:url('musicBox/send.png') center no-repeat;"></button>
+				  <button class="allMusicShowen" style="background:url('musicBox/send2.png') center no-repeat;"></button>
 		          <button class="likeThis" style="background:url('musicBox/like.png') center no-repeat;"></button>
 		          <div class="DonTLike" style="opacity:0;z-index: 10;">
 		                                              您已取消该收藏...
@@ -715,42 +718,6 @@ body{
 		   <ul>
 		      
 		   </ul>
-		</div>
-		<div class="personalShow" style="display: none;opacity:0.8;">
-		    <p style="position: absolute;top:0px;right:10px;font:20px '微软雅黑';cursor: pointer;">x</p>
-		    <p>个人资料</p>
-		    <div style="position: absolute;right: 50px;top:50px;">
-		        <img src="musicBox/personal.png" width="70px" height="70px" style="border-radius:35px;">
-		        <p id="changeHeadImg" style="cursor: pointer;display:block;padding: 5px 10px;border: 1px #ccc solid;border-radius: 10px;">更多头像</p>
-		    </div>
-		    <form action="">
-		       <label>昵称:</label><input class="readOnly sameInput" type="text" value='枫' required="required" maxlength="2"><br>
-		       <label>性别:</label><input class="readOnly sameInput" type="text" value='男' maxlength="1"><br>
-		       <label>年龄:</label><input class="readOnly sameInput" type="number" value="22" maxlength="2"><br>
-		       <label>邮箱:</label><input class="readOnly " style="margin-top: 20px" type="email" required="required"><br>
-		       <label>个人网站:</label><input class="readOnly" style="margin-top: 20px" type="url" required="required"><br>
-               <label>喜欢的颜色:</label><input class="readOnly" type="color"><br>
-               <label>时间:</label><input class="readOnly" style="margin-top: 20px" type="date"><br>
-               <label style="display:inline-block;margin:20px 0px;">个人信息:</label><br>
-               <textarea class="readOnly" rows="5" cols="50" style="text-indent:5px;;resize:none;overflow: scroll;"></textarea><br>
-               <input type="button" class="save" value="保存">
-               <input type="button" class="changeIt" value="修改">
-		    </form>    
-		</div>
-		<div class="HeadImgBox" style="display: none">
-		     <p style="position: absolute;top:0px;right:5px;font:20px '微软雅黑';cursor: pointer;">x</p>
-		     <img src="musicBox/personal.png" width="70px" height="70px">
-		     <img src="musicBox/head1.jpg" width="70px" height="70px">
-		     <img src="musicBox/head2.jpg" width="70px" height="70px">
-		     <img src="musicBox/head3.jpg" width="70px" height="70px">
-		     <img src="musicBox/head4.jpg" width="70px" height="70px">
-		     <img src="musicBox/head5.jpg" width="70px" height="70px">
-		     <img src="musicBox/head6.jpg" width="70px" height="70px">
-		     <img src="musicBox/head7.jpg" width="70px" height="70px">
-		     <img src="musicBox/head8.jpg" width="70px" height="70px">
-		     <img src="musicBox/head9.jpg" width="70px" height="70px">
-		     <img src="musicBox/head10.jpg" width="70px" height="70px">
-		     <img src="musicBox/head11.jpg" width="70px" height="70px">
 		</div>
 	</div>
 </body>
