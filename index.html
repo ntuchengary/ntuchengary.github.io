@@ -236,7 +236,7 @@ body{
 .allShow{
    padding:10px 0px;
    position:absolute;
-   right:584px;
+   right:800px;
    top:50px;
    width: 400px;
    height:483px;
@@ -272,6 +272,49 @@ body{
 	background-color: #B6C6D5;
 	color:#a11;
 }
+	/*all show en*/
+
+.allShowen{
+   padding:10px 0px;
+   position:absolute;
+   right:300px;
+   top:50px;
+   width: 400px;
+   height:483px;
+   background-color: #404040;
+   border-radius: 5px;
+   box-shadow: 1px 2px black;
+   font:16px '楷体';
+   overflow: auto;
+}
+
+.allShowen ul{
+   list-style-type: none;
+}
+
+.allShowen ul li{
+   height:30px;
+   line-height: 30px;
+   color:#22CF72;
+   border-radius: 12px;
+   cursor: pointer;
+   overflow: hidden;
+   border-bottom: 1px solid #88f; 
+   transition:background 1s linear;
+   }
+.allShowen ul li a{
+   display: inline-block;
+   width: 200px;
+   padding-left: 20px;
+}
+.allShowen ul li i{
+   margin-left: 15px;
+}
+.allShowen ul li:HOVER {
+	background-color: #B6C6D5;
+	color:#a11;
+}
+/**/
 .personalShow{
    position:absolute;
    right:184px;
@@ -718,6 +761,12 @@ body{
 		   <ul>
 		      
 		   </ul>
+		 </div>
+				<div class="allShowen"style="display: none;">
+		   <ul>
+		      
+		   </ul>
+		</div>
 		</div>
 	</div>
 </body>
