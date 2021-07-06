@@ -393,12 +393,12 @@ label {
       var nowMusicNum=0;
 	  var totalNum=27;
 	  var totalNumen=2;
-      //默认播放第一首歌曲
+      //default play first song 
       $("#myAudio source").attr("src","music/"+(musicList[nowMusicNum])+"");
-      //默认显示第一首歌曲的信息
+      //display song info
       $(".musicInfo p:eq(0)").text(musicList[nowMusicNum]);/* 歌曲信息 */
       $(".musicInfo p:eq(1)").text(musicStar[nowMusicNum]);/* 歌手信息 */
-      /* 点击播放时播放音乐 */
+      /* click play button */
       $(".musicPlay").click(function(){
          $(this).hide();
          $(".musicStop").show();
@@ -619,6 +619,15 @@ label {
             $(".musicInfo p:eq(0)").text($(this).children("a").text())
             $(".musicInfo p:eq(1)").text($(this).children("span").text())
             
+            myAudio.load();
+            $(".musicPlay").trigger("click");
+         });
+		 /* click all en list to play */
+		$(".allShowen ul li").live('click',function(){
+            var musicSrc=$(this).children("a").text();
+            $("#myAudio source").attr("src","music/"+musicSrc+"");           
+            $(".musicInfo p:eq(0)").text($(this).children("a").text())
+            $(".musicInfo p:eq(1)").text($(this).children("span").text())
             myAudio.load();
             $(".musicPlay").trigger("click");
          });
