@@ -14,6 +14,9 @@ body{
   background-image:url('image/element.jpg');
   background-size:cover;
 }
+label { 
+    color:white; 
+} 
 /* div main */
 .main{
   padding: 50px 0px 0px 100px;
@@ -66,8 +69,8 @@ body{
 .musicHeader{
    height: 40px;
    line-height: 60px;
-   text-align: right;
-   padding: 0px 10px;
+   text-align: left;
+   padding: 0px 20px;
 }
 .musicHeader button{
    display: inline-block;
@@ -379,12 +382,17 @@ body{
 <script type="text/javascript">
    $(function(){
       $(".orderPlay").trigger("click");
-      var musicList=["星辰大海.mp3","四季予你.mp3","天黑請閉眼.mp3","太空人.mp3","不為誰而作的歌.mp3","你,好不好.mp3","句號.mp3","歌頌者.mp3","天黑請閉眼2.mp3","家家酒.mp3","巴別塔慶典.mp3","年輪說.mp3","怎麼了.mp3","愛人錯過.mp3","愛情怎麼了嗎.mp3","我好嗎.mp3","歌頌者.mp3","炙愛.mp3","煙幕.mp3","直到我遇見了你.mp3","說好不哭.mp3","路過人間.mp3","連名帶姓.mp3","摩天動物園.mp3","魚仔.mp3","葉子.mp3","寂寞邊界.mp3"];
-      var musicStar=["黃霄雲","程響","顏志琳","吳青峰","林俊傑","周興哲","鄧紫棋","吳青峰","陳零九","家家","吳青峰","楊丞琳","周興哲","告五人","盧廣仲","梁靜茹","吳青峰","陳昕玥","陳昕玥","陳友廷","周杰倫","郁可唯","張惠妹","鄧紫棋","盧廣仲","阿桑","張棟樑"]
-      var myAudio=document.getElementById("myAudio");
+      var musicList=["你的行李.mp3","星辰大海.mp3","四季予你.mp3","天黑請閉眼.mp3","太空人.mp3","不為誰而作的歌.mp3","你,好不好.mp3","句號.mp3","歌頌者.mp3","天黑請閉眼2.mp3","家家酒.mp3","巴別塔慶典.mp3","年輪說.mp3","怎麼了.mp3","愛人錯過.mp3","愛情怎麼了嗎.mp3","我好嗎.mp3","歌頌者.mp3","炙愛.mp3","煙幕.mp3","直到我遇見了你.mp3","說好不哭.mp3","路過人間.mp3","連名帶姓.mp3","摩天動物園.mp3","魚仔.mp3","葉子.mp3","寂寞邊界.mp3"];
+      var musicStar=["謝震廷","黃霄雲","程響","顏志琳","吳青峰","林俊傑","周興哲","鄧紫棋","吳青峰","陳零九","家家","吳青峰","楊丞琳","周興哲","告五人","盧廣仲","梁靜茹","吳青峰","陳昕玥","陳昕玥","陳友廷","周杰倫","郁可唯","張惠妹","鄧紫棋","盧廣仲","阿桑","張棟樑"]
+      var musicListen=["Peaches.mp3","Hold On.mp3","Yummy.mp3"];
+      var musicStaren=["Justin Bieber","Justin Bieber","Justin Bieber"];
+	  var totallist=[musicList,musicListen];
+	  var totalstarlist=[musicStar,musicStaren];
+	  var myAudio=document.getElementById("myAudio");
       myAudio.volume=document.getElementById("soundRange").value/100;
       var nowMusicNum=0;
-	  var totalNum=26;
+	  var totalNum=27;
+	  var totalNumen=2;
       //默认播放第一首歌曲
       $("#myAudio source").attr("src","music/"+(musicList[nowMusicNum])+"");
       //默认显示第一首歌曲的信息
@@ -616,7 +624,12 @@ body{
          });
          for(var i=0;i<totalNum+1;i++){
                 (function(k){
-                    $(".allShow ul").append("<li><i>"+(i+1)+".</i><a>"+musicList[i]+"</a><span>"+musicStar[i]+"</span>")
+                    $(".allShow ul").append("<li><i>"+(i+1)+".</i><a>"+totallist[0][i]+"</a><span>"+totalstarlist[0][i]+"</span>")
+                })(i)
+            }
+		for(var i=0;i<totalNumen+1;i++){
+                (function(k){
+                    $(".allShowen ul").append("<li><i>"+(i+1)+".</i><a>"+totallist[1][i]+"</a><span>"+totalstarlist[1][i]+"</span>")
                 })(i)
             }
 /*------------ 点击随机播放    切换到    单曲循环     以及悬浮显示的提醒   ---------------*/
@@ -713,6 +726,15 @@ body{
 		          <div class="boxAllshow" style="display: none;white-space: nowrap;">
 		                                            
 		          </div>
+				
+  <label for="playlisttype">play list</label>
+  <select name="cars" id="cars">
+    <option value="ch">中文</option>
+    <option value="en">英文</option>
+    <option value="jp">日文</option>
+    <option value="self">收藏</option>
+  </select>
+
 		          <button class="removeAll" style="background: url('musicBox/remove.png') center no-repeat;"></button>
 		          <button class="allMusicShow" style="background:url('musicBox/send.png') center no-repeat;"></button>
 				  <button class="allMusicShowen" style="background:url('musicBox/send2.png') center no-repeat;"></button>
