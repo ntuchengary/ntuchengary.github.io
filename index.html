@@ -685,6 +685,15 @@ label {
             myAudio.load();
             $(".musicPlay").trigger("click");
          });
+		 		 /* click all jp list to play */
+		$(".allShowjp ul li").live('click',function(){
+            var musicSrc=$(this).children("a").text();
+            $("#myAudio source").attr("src","music/"+musicSrc+"");           
+            $(".musicInfo p:eq(0)").text($(this).children("a").text())
+            $(".musicInfo p:eq(1)").text($(this).children("span").text())
+            myAudio.load();
+            $(".musicPlay").trigger("click");
+         });
          for(var i=0;i<totalNum+1;i++){
                 (function(k){
                     $(".allShow ul").append("<li><i>"+(i+1)+".</i><a>"+totallist[0][i]+"</a><span>"+totalstarlist[0][i]+"</span>")
