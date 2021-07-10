@@ -84,7 +84,7 @@ label {
    width: 130px;
    line-height: 20px;
    background-color: #36c;
-   font:15px '楷体';
+   font:15px 'PMingLiU';
    color:#fff;
    border-radius: 5px;
    position:absolute;
@@ -94,7 +94,7 @@ label {
 .DonTLike{
    position:absolute;
    left:380px;top:60px;
-   font:14px '楷体';
+   font:14px 'PMingLiU';
    width: 120px;
    height:30px;
    line-height: 30px;
@@ -115,7 +115,7 @@ label {
 .musicBoxBody div{
    display: inline-block;
    color:white;
-   font-family: '华文楷体';
+   font-family: 'PMingLiU';
    font-size:14px;
    margin-left: 25px;
    position: relative;
@@ -190,7 +190,7 @@ label {
    position: absolute;
    top:-5px;
    right:0px;
-   font:15px '楷体';
+   font:15px 'Microsoft JhengHei';
    background-color: #fff;
    border-radius: 3px;
 }
@@ -202,7 +202,7 @@ label {
    background-color: #404040;
    border-radius: 12px;
    box-shadow: 1px 2px black;
-   font:16px '楷体';
+   font:16px 'PMingLiU';
    overflow: auto;
 }
 .collect ul{
@@ -246,7 +246,7 @@ label {
    background-color: #404040;
    border-radius: 5px;
    box-shadow: 1px 2px black;
-   font:16px '楷体';
+   font:16px 'PMingLiU';
    overflow: auto;
 }
 .allShow ul{
@@ -287,7 +287,7 @@ label {
    background-color: #404040;
    border-radius: 5px;
    box-shadow: 1px 2px black;
-   font:16px '楷体';
+   font:16px 'PMingLiU';
    overflow: auto;
 }
 
@@ -330,7 +330,7 @@ label {
    background-color: #404040;
    border-radius: 5px;
    box-shadow: 1px 2px black;
-   font:16px '楷体';
+   font:16px 'PMingLiU';
    overflow: auto;
 }
 
@@ -444,26 +444,85 @@ label {
       //display song info
       $(".musicInfo p:eq(0)").text(musicList[nowMusicNum]);/* 歌曲信息 */
       $(".musicInfo p:eq(1)").text(musicStar[nowMusicNum]);/* 歌手信息 */
-      /* click play button */
+	  $(".listtype").change(function() {
+	  myAudio.pause();
+         $(".musicStop").hide();
+         $(".musicPlay").show();
+	  	  var nameElement = document.getElementById("listtype");
+		var listtype = nameElement.value;
+		if(listtype=="ch")
+		{
+		nowMusicNum=0;
+		      //default play first song 
+		$("#myAudio source").attr("src","music/"+(musicList[nowMusicNum])+"");
+		//display song info
+		$(".musicInfo p:eq(0)").text(musicList[nowMusicNum]);/* 歌曲信息 */
+		$(".musicInfo p:eq(1)").text(musicStar[nowMusicNum]);/* 歌手信息 */
+		myAudio.load()
+		}
+		if(listtype=="en")
+		{
+		nowMusicNum=0;
+		      //default play first song 
+		$("#myAudio source").attr("src","music/"+(musicListen[nowMusicNum])+"");
+		//display song info
+		$(".musicInfo p:eq(0)").text(musicListen[nowMusicNum]);/* 歌曲信息 */
+		$(".musicInfo p:eq(1)").text(musicStaren[nowMusicNum]);/* 歌手信息 */
+		myAudio.load();
+		}
+	  	if(listtype=="jp")
+		{
+		nowMusicNum=0;
+		      //default play first song 
+		$("#myAudio source").attr("src","music/"+(musicListjp[nowMusicNum])+"");
+		//display song info
+		$(".musicInfo p:eq(0)").text(musicListjp[nowMusicNum]);/* 歌曲信息 */
+		$(".musicInfo p:eq(1)").text(musicStarjp[nowMusicNum]);/* 歌手信息 */
+		myAudio.load()
+		}
+		if(listtype=="self")
+		{
+         var listLi=$(".collect ul li").length;
+         nowMusicNum=0;
+         if(listLi==0){/* no收藏 */
+		 alert("收藏為空");
+		 nameElement.value="ch";
+		$("#myAudio source").attr("src","music/"+(musicList[nowMusicNum])+"");
+		//display song info
+		$(".musicInfo p:eq(0)").text(musicList[nowMusicNum]);/* 歌曲信息 */
+		$(".musicInfo p:eq(1)").text(musicStar[nowMusicNum]);/* 歌手信息 */
+		myAudio.load()
+         }else{
+
+               var musicSrc=$(".collect ul li").eq(nowListliNum).children("a").text();
+               $("#myAudio source").attr("src","music/"+musicSrc+"");
+               
+               $(".musicInfo p:eq(0)").text($(".collect ul li").eq(nowListliNum).children("a").text())
+               $(".musicInfo p:eq(1)").text($(".collect ul li").eq(nowListliNum).children("span").text())
+               myAudio.load();
+         } 
+		}
+		});
+	     /* click play button */
       $(".musicPlay").click(function(){
          $(this).hide();
          $(".musicStop").show();
          myAudio.play();
-         /* ------------------同步进度条-------------------- */
+         /* ------------------同步進度條-------------------- */
          setInterval(function(){
-             var myAudio=document.getElementById("myAudio");   //抓住音乐播放器
-             var musicRange=document.getElementById("musicRange");  //抓住音乐进度条
+             var myAudio=document.getElementById("myAudio");   //
+             var musicRange=document.getElementById("musicRange");  //進度條
              var ValueTime=(myAudio.currentTime/myAudio.duration)*100;
              document.getElementById("musicRange").value=ValueTime;
              musicRange.style.backgroundSize=ValueTime+"% 100%";},1000); 
-      })
+      });
       $(".musicStop").click(function(){
          $(this).hide();
          $(".musicPlay").show();
          myAudio.pause();
       });
       
-      /* 点击上一首时切换音乐 */
+      /* 按上一首 */
       $(".musicPrev").click(function(){
          nowMusicNum--;
          
@@ -477,24 +536,65 @@ label {
          myAudio.load();
          $(".musicPlay").trigger("click");
       });
-      //在随机播放时的上一首按钮
+      //random按上一首
       $(".musicPrev2").click(function(){
          var randomNum=Math.random();
+		var nameElement = document.getElementById("listtype");
+		var listtype = nameElement.value;
+		if(listtype =="cn")
+		{
          var randomMusicNum=randomNum*musicList.length;
          var nowPlayNum=Math.floor(randomMusicNum);
          $("#myAudio source").attr("src","music/"+(musicList[nowPlayNum])+"");/* 歌曲链接 */
          $(".musicInfo p:eq(0)").text(musicList[nowPlayNum]);/* 歌曲信息 */
-         $(".musicInfo p:eq(1)").text(musicStar[nowPlayNum]);/* 歌手信息 */
-  
+         $(".musicInfo p:eq(1)").text(musicStar[nowPlayNum]);/* 歌手信息 */      
          myAudio.load();
          $(".musicPlay").trigger("click");
+		 }
+		if(listtype =="en")
+		{
+         var randomMusicNum=randomNum*musicListen.length;
+         var nowPlayNum=Math.floor(randomMusicNum);
+         $("#myAudio source").attr("src","music/"+(musicListen[nowPlayNum])+"");/* 歌曲链接 */
+         $(".musicInfo p:eq(0)").text(musicListen[nowPlayNum]);/* 歌曲信息 */
+         $(".musicInfo p:eq(1)").text(musicStaren[nowPlayNum]);/* 歌手信息 */      
+         myAudio.load();
+         $(".musicPlay").trigger("click");
+		 }
+		if(listtype =="jp")
+		{
+         var randomMusicNum=randomNum*musicListjp.length;
+         var nowPlayNum=Math.floor(randomMusicNum);
+         $("#myAudio source").attr("src","music/"+(musicListjp[nowPlayNum])+"");/* 歌曲链接 */
+         $(".musicInfo p:eq(0)").text(musicListjp[nowPlayNum]);/* 歌曲信息 */
+         $(".musicInfo p:eq(1)").text(musicStarjp[nowPlayNum]);/* 歌手信息 */      
+         myAudio.load();
+         $(".musicPlay").trigger("click");
+		 }
+		if(listtype =="self")
+		{
+		 var listLi=$(".collect ul li").length;
+         var randomMusicNum=randomNum*listLi;
+         var nowPlayNum=Math.floor(randomMusicNum);
+          var musicSrc=$(".collect ul li").eq(nowPlayNum).children("a").text();
+         $("#myAudio source").attr("src","music/"+musicSrc+"");
+               
+          $(".musicInfo p:eq(0)").text($(".collect ul li").eq(nowPlayNum).children("a").text())
+         $(".musicInfo p:eq(1)").text($(".collect ul li").eq(nowPlayNum).children("span").text())
+         myAudio.load();
+         $(".musicPlay").trigger("click");
+		 }
       });
       /* 列表循环下的上一首 */
       
       var nowListliNum=0;
       $(".musicPrev3").click(function(){
+		nowListliNum--;
+	    var nameElement = document.getElementById("listtype");
+		var listtype = nameElement.value;
+		if(listtype =="self")
+		{
          var listLi=$(".collect ul li").length;
-         nowListliNum--;
          if(listLi==0){/* no收藏 */
 			alert("收藏為空")
          }else{
@@ -508,13 +608,56 @@ label {
                $(".musicInfo p:eq(1)").text($(".collect ul li").eq(nowListliNum).children("span").text())
          }
          myAudio.load();
-         $(".musicStop").trigger("click");
+         $(".musicPlay").trigger("click");
+		 }
+		if(listtype =="cn")
+		{
+            if(nowListliNum<=-1){
+               nowListliNum=totalNum;
+               }
+         
+         $("#myAudio source").attr("src","music/"+(musicList[nowListliNum])+"");/* 歌曲链接 */
+         $(".musicInfo p:eq(0)").text(musicList[nowListliNum]);/* 歌曲信息 */
+         $(".musicInfo p:eq(1)").text(musicStar[nowListliNum]);/* 歌手信息 */
+         
+         myAudio.load();
+         $(".musicPlay").trigger("click");
+		 }
+		if(listtype =="en")
+		{
+            if(nowListliNum<=-1){
+               nowListliNum=totalNumen;
+               }
+         
+         $("#myAudio source").attr("src","music/"+(musicListen[nowListliNum])+"");/* 歌曲链接 */
+         $(".musicInfo p:eq(0)").text(musicListen[nowListliNum]);/* 歌曲信息 */
+         $(".musicInfo p:eq(1)").text(musicStaren[nowListliNum]);/* 歌手信息 */
+         
+         myAudio.load();
+         $(".musicPlay").trigger("click");
+		 }
+		if(listtype =="jp")
+		{
+            if(nowListliNum<=-1){
+               nowListliNum=totalNumjp;
+               }
+         
+         $("#myAudio source").attr("src","music/"+(musicListjp[nowListliNum])+"");/* 歌曲链接 */
+         $(".musicInfo p:eq(0)").text(musicListjp[nowListliNum]);/* 歌曲信息 */
+         $(".musicInfo p:eq(1)").text(musicStarjp[nowListliNum]);/* 歌手信息 */
+         
+         myAudio.load();
+         $(".musicPlay").trigger("click");
+		 }
       });
       
       /* 点击下一首时切换音乐 */
       $(".musicNext").click(function(){
          nowMusicNum++;
-         
+         var nameElement = document.getElementById("listtype");
+		var listtype = nameElement.value;
+		if(listtype =="cn")
+		{
          if(nowMusicNum>totalNum){
          nowMusicNum=0;
          }
@@ -525,11 +668,56 @@ label {
          
          myAudio.load();
          $(".musicPlay").trigger("click");
+		 }
+		 if(listtype =="en")
+		{
+         if(nowMusicNum>totalNumen){
+         nowMusicNum=0;
+         }
+         
+         $("#myAudio source").attr("src","music/"+(musicListen[nowMusicNum])+"");/* 歌曲链接 */
+         $(".musicInfo p:eq(0)").text(musicListen[nowMusicNum]);/* 歌曲信息 */
+         $(".musicInfo p:eq(1)").text(musicStaren[nowMusicNum]);/* 歌手信息 */
+         
+         myAudio.load();
+         $(".musicPlay").trigger("click");
+		 }
+		if(listtype =="jp")
+		{
+         if(nowMusicNum>totalNumjp){
+         nowMusicNum=0;
+         }
+         
+         $("#myAudio source").attr("src","music/"+(musicListjp[nowMusicNum])+"");/* 歌曲链接 */
+         $(".musicInfo p:eq(0)").text(musicListjp[nowMusicNum]);/* 歌曲信息 */
+         $(".musicInfo p:eq(1)").text(musicStarjp[nowMusicNum]);/* 歌手信息 */
+         
+         myAudio.load();
+         $(".musicPlay").trigger("click");
+		 }
+		if(listtype =="self")////
+		{
+		var listLi=$(".collect ul li").length;
+         if(nowMusicNum>listLi){
+         nowMusicNum=0;
+         }
+          var musicSrc=$(".collect ul li").eq(nowMusicNum).children("a").text();
+         $("#myAudio source").attr("src","music/"+musicSrc+"");
+               
+          $(".musicInfo p:eq(0)").text($(".collect ul li").eq(nowMusicNum).children("a").text())
+         $(".musicInfo p:eq(1)").text($(".collect ul li").eq(nowMusicNum).children("span").text())
+         myAudio.load();
+         $(".musicPlay").trigger("click");
+		 }
       });
-      //随机播放时的下一首按钮
+      //random next
       
       $(".musicNext2").click(function(){
          var randomNum=Math.random();
+		var nameElement = document.getElementById("listtype");
+		var listtype = nameElement.value;
+		if(listtype =="cn")
+		{
          var randomMusicNum=randomNum*musicList.length;
          var nowPlayNum=Math.floor(randomMusicNum);
          $("#myAudio source").attr("src","music/"+(musicList[nowPlayNum])+"");/* 歌曲链接 */
@@ -537,10 +725,48 @@ label {
          $(".musicInfo p:eq(1)").text(musicStar[nowPlayNum]);/* 歌手信息 */      
          myAudio.load();
          $(".musicPlay").trigger("click");
+		 }
+		if(listtype =="en")
+		{
+         var randomMusicNum=randomNum*musicListen.length;
+         var nowPlayNum=Math.floor(randomMusicNum);
+         $("#myAudio source").attr("src","music/"+(musicListen[nowPlayNum])+"");/* 歌曲链接 */
+         $(".musicInfo p:eq(0)").text(musicListen[nowPlayNum]);/* 歌曲信息 */
+         $(".musicInfo p:eq(1)").text(musicStaren[nowPlayNum]);/* 歌手信息 */      
+         myAudio.load();
+         $(".musicPlay").trigger("click");
+		 }
+		if(listtype =="jp")
+		{
+         var randomMusicNum=randomNum*musicListjp.length;
+         var nowPlayNum=Math.floor(randomMusicNum);
+         $("#myAudio source").attr("src","music/"+(musicListjp[nowPlayNum])+"");/* 歌曲链接 */
+         $(".musicInfo p:eq(0)").text(musicListjp[nowPlayNum]);/* 歌曲信息 */
+         $(".musicInfo p:eq(1)").text(musicStarjp[nowPlayNum]);/* 歌手信息 */      
+         myAudio.load();
+         $(".musicPlay").trigger("click");
+		 }
+		if(listtype =="self")
+		{
+		 var listLi=$(".collect ul li").length;
+         var randomMusicNum=randomNum*listLi;
+         var nowPlayNum=Math.floor(randomMusicNum);
+          var musicSrc=$(".collect ul li").eq(nowPlayNum).children("a").text();
+         $("#myAudio source").attr("src","music/"+musicSrc+"");
+               
+          $(".musicInfo p:eq(0)").text($(".collect ul li").eq(nowPlayNum).children("a").text())
+         $(".musicInfo p:eq(1)").text($(".collect ul li").eq(nowPlayNum).children("span").text())
+         myAudio.load();
+         $(".musicPlay").trigger("click");
+		 }
       });
       
-      /* 列表循环下的xia一首 */
+      //list next
       $(".musicNext3").click(function(){
+	  var nameElement = document.getElementById("listtype");
+		var listtype = nameElement.value;
+		if(listtype =="self")
+		{
          var listLi=$(".collect ul li").length;
          nowListliNum++;
          if(listLi==0){/* no收藏 */
@@ -557,6 +783,64 @@ label {
                myAudio.load();
                $(".musicPlay").trigger("click");
          } 
+		 }
+		 if(listtype =="ch")
+		{
+         var listLi=$(".allShow ul li").length;
+         nowListliNum++;
+         if(listLi==0){/* no收藏 */
+		 alert("收藏為空")
+         }else{
+            if(nowListliNum>=listLi){
+               nowListliNum=0;
+               }
+               var musicSrc=$(".allShow ul li").eq(nowListliNum).children("a").text();
+               $("#myAudio source").attr("src","music/"+musicSrc+"");
+               
+               $(".musicInfo p:eq(0)").text($(".allShow ul li").eq(nowListliNum).children("a").text())
+               $(".musicInfo p:eq(1)").text($(".allShow ul li").eq(nowListliNum).children("span").text())
+               myAudio.load();
+               $(".musicPlay").trigger("click");
+         } 
+		 }
+		 		 if(listtype =="en")
+		{
+         var listLi=$(".allShowen ul li").length;
+         nowListliNum++;
+         if(listLi==0){/* no收藏 */
+		 alert("收藏為空")
+         }else{
+            if(nowListliNum>=listLi){
+               nowListliNum=0;
+               }
+               var musicSrc=$(".allShowen ul li").eq(nowListliNum).children("a").text();
+               $("#myAudio source").attr("src","music/"+musicSrc+"");
+               
+               $(".musicInfo p:eq(0)").text($(".allShowen ul li").eq(nowListliNum).children("a").text())
+               $(".musicInfo p:eq(1)").text($(".allShowen ul li").eq(nowListliNum).children("span").text())
+               myAudio.load();
+               $(".musicPlay").trigger("click");
+         } 
+		 }
+		 if(listtype =="jp")
+		{
+         var listLi=$(".allShowjp ul li").length;
+         nowListliNum++;
+         if(listLi==0){/* no收藏 */
+		 alert("收藏為空")
+         }else{
+            if(nowListliNum>=listLi){
+               nowListliNum=0;
+               }
+               var musicSrc=$(".allShowjp ul li").eq(nowListliNum).children("a").text();
+               $("#myAudio source").attr("src","music/"+musicSrc+"");
+               
+               $(".musicInfo p:eq(0)").text($(".allShowjp ul li").eq(nowListliNum).children("a").text())
+               $(".musicInfo p:eq(1)").text($(".allShowjp ul li").eq(nowListliNum).children("span").text())
+               myAudio.load();
+               $(".musicPlay").trigger("click");
+         } 
+		 }
       });
       
          /* 点击音量切换到静音 */
@@ -630,6 +914,9 @@ label {
          })
          /* 收藏到的音乐 点击播放 */
          $(".collect ul li").live('click',function(){
+		 var nameElement = document.getElementById("listtype");
+		var listtype = nameElement.value;
+			nameElement.value="self";
             var musicSrc=$(this).children("a").text();
             $("#myAudio source").attr("src","music/"+musicSrc+"");
             
@@ -655,7 +942,7 @@ label {
          },function(){
             $(".allShowjp").fadeOut(1000);
          })
-         //鼠标悬浮提示
+         //mouse hover show
          $(".allMusicShow").hover(function(){
             $(".boxAllshow").text("顯示中文歌庫").toggle();
          })
@@ -665,8 +952,11 @@ label {
 	   		 $(".allMusicShowjp").hover(function(){
             $(".boxAllshow").text("顯示日文歌庫").toggle();
          })
-         /* 点击所有的音乐 点击播放 */
+         /* click show ch list */
          $(".allShow ul li").live('click',function(){
+		 		var nameElement = document.getElementById("listtype");
+		var listtype = nameElement.value;
+			nameElement.value="ch";
             var musicSrc=$(this).children("a").text();
             $("#myAudio source").attr("src","music/"+musicSrc+"");
             
@@ -678,6 +968,9 @@ label {
          });
 		 /* click all en list to play */
 		$(".allShowen ul li").live('click',function(){
+				 		var nameElement = document.getElementById("listtype");
+		var listtype = nameElement.value;
+			nameElement.value="en";
             var musicSrc=$(this).children("a").text();
             $("#myAudio source").attr("src","music/"+musicSrc+"");           
             $(".musicInfo p:eq(0)").text($(this).children("a").text())
@@ -687,6 +980,9 @@ label {
          });
 		 		 /* click all jp list to play */
 		$(".allShowjp ul li").live('click',function(){
+				 		var nameElement = document.getElementById("listtype");
+		var listtype = nameElement.value;
+			nameElement.value="jp";
             var musicSrc=$(this).children("a").text();
             $("#myAudio source").attr("src","music/"+musicSrc+"");           
             $(".musicInfo p:eq(0)").text($(this).children("a").text())
@@ -743,24 +1039,26 @@ label {
          })
 /*----------- 点击列表循环  切换到  顺序播放   以及悬浮显示的提醒 ----------*/
          $(".listPlay").click(function(){//inTurn
-            $(".MusicPlayStyle").hide().eq(3).show();
-            $(".randomP").hide();
-            $(".inTurn").show();       //将数组中的歌曲  循环  播放
+            $(".MusicPlayStyle").hide().eq(0).show();
+            $(".randomP").show();      //将数组中的歌曲  取得数据然后  循环  播放
+            $(".inTurn").hide();
             $(".listP").hide();
             //清除列表循环的定时器  下一首
             clearInterval(listTime);
             
             /* 顺序播放的定时器 */
-            InTurnTime=setInterval(function(){
+            randomTime1=setInterval(function(){
              if(myAudio.currentTime==myAudio.duration){
-                 $(".musicNext").trigger("click");
+                 $(".musicNext2").trigger("click");
                }
-            },100);
+            },100); 
          })
          $(".listPlay").hover(function(){
             $(".musicBoxFooter p").text("list cycle").toggle();
          })
+		 
 /*------------ 点击顺序播放  切换到  随机播放   以及悬浮显示的提醒 --------------*/
+/*
          $(".orderPlay").click(function(){//randomP
             $(".MusicPlayStyle").hide().eq(0).show();
             $(".randomP").show();      //将数组中的歌曲  取得数据然后  循环  播放
@@ -779,7 +1077,7 @@ label {
          $(".orderPlay").hover(function(){
             $(".musicBoxFooter p").text("In sequence").toggle();
          })
- 
+ */
     })
     
     /* ------------------同步进度条-------------------- */ 
@@ -805,20 +1103,21 @@ label {
 		          </div>
 				
   <label for="playlisttype">play list</label>
-  <select name="cars" id="cars">
+  <select class="listtype" id="listtype">
     <option value="ch">中文</option>
     <option value="en">英文</option>
     <option value="jp">日文</option>
     <option value="self">收藏</option>
   </select>
 
-		          <button class="removeAll" style="background: url('musicBox/remove.png') center no-repeat;"></button>
+
 		          <button class="allMusicShow" style="background:url('musicBox/send.png') center no-repeat;"></button>
 				  <button class="allMusicShowen" style="background:url('musicBox/send2.png') center no-repeat;"></button>
 				  <button class="allMusicShowjp" style="background:url('musicBox/send3.png') center no-repeat;"></button>
+				  <button class="removeAll" style="background: url('musicBox/remove.png') center no-repeat;"></button>
 		          <button class="likeThis" style="background:url('musicBox/like.png') center no-repeat;"></button>
 		          <div class="DonTLike" style="opacity:0;z-index: 10;">
-		                                              您已取消该收藏...
+		                                              已取消該收藏...
 		          </div>
 		     </div>
 		     <div class="musicBoxBody">
