@@ -113,18 +113,22 @@ label {
    cursor: pointer;
 }
 .musicBoxBody div{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
    display: inline-block;
    color:white;
    font-family: 'PMingLiU';
    font-size:14px;
-   margin-left: 25px;
+   margin-left: 15px;
    position: relative;
    top:-12px;
 }
 .musicBoxBody div p{
    display: block;
    height:16px;
-   padding-left:20px;
+   padding-left:15px;
    overflow: hidden;
 }
 /* 音乐盒 脚部行块 */
@@ -1127,10 +1131,6 @@ label {
 		              <p style="background: url('musicBox/musicInfo.png') 0px 3px no-repeat;cursor: default;"></p>
 		              <p style="background: url('musicBox/musicStar.png') 0px 3px no-repeat;cursor: default;"></p>
 		          </div>
-		          <div class="actOrSta" style="position: absolute;top:130px;left:350px">
-		             <img src="music_img/o_ab.png" style="position: absolute;top:0px;right:20px;">
-		             <img src="music_img/o_ac.gif" style="position: absolute;top:0px;right:20px;display: none">
-		          </div>
 		     </div>
 		     <div class="musicBoxFooter">
 		         <!-- 数组顺序 --><button class="inTurn musicPrev" style="display:none;background: url('musicBox/musicPrev.png') center no-repeat;"></button>
@@ -1141,7 +1141,7 @@ label {
 		         <!-- 数组顺序 --><button class="inTurn musicNext" style="display:none;background: url('musicBox/musicNext.png') center no-repeat;"></button>
 		         <!-- 列表顺序 --><button class="listP musicNext3" style="display:none;background: url('musicBox/musicNext.png') center no-repeat;"></button>
 		         <!-- 数组随机--><button class="randomP musicNext2" style="background: url('musicBox/musicNext.png') center no-repeat;"></button>
-		               
+		               	
 		               <a style="height:10px;border-radius:10px;background-color: #fff;display: inline-block;"><input id="musicRange" type="range" onchange="nowPlay()"></a>
 		               
 		               <button class="musicSound" style="position:relative;z-index:2;background: url('musicBox/musicSound.png') center no-repeat;"></button>
