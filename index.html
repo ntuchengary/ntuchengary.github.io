@@ -200,6 +200,10 @@ label {
 }
 /* 收藏音乐盒子 */
 .collect{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
    width: 280px;
    height:340px;
    padding:10px 0px;
@@ -1076,7 +1080,9 @@ label {
          $(".listPlay").hover(function(){
             $(".musicBoxFooter p").text("list cycle").toggle();
          })
-		 
+		 $(".musicBoxBody img").hover(function(){
+            $(".boxAllshow").text("Show/Hide 收藏list").toggle();
+         })
 /*------------ 点击顺序播放  切换到  随机播放   以及悬浮显示的提醒 --------------*/
 /*
          $(".orderPlay").click(function(){//randomP
@@ -1097,8 +1103,17 @@ label {
          $(".orderPlay").hover(function(){
             $(".musicBoxFooter p").text("In sequence").toggle();
          })
+		 
  */
+ 	    $(".musicBoxBody img").click(function(){
+			if($(".collect").is(":hidden")){
+                $(".collect").fadeIn(1000);
+            }else{
+                $(".collect").fadeOut(500);
+            }
+         });
     })
+
     
     /* ------------------同步进度条-------------------- */ 
      function nowPlay(){
