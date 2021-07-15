@@ -56,7 +56,7 @@ label {
     box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
     opacity:0.01;
 }
-/* 音乐盒子 */
+/* musicbox */
 .musicBox{
    width: 290px;
    height:144px;
@@ -65,7 +65,7 @@ label {
    box-shadow: 2px 2px black;
 }
 
-/* 音乐盒 头部行块 */
+/* musicbox head */
 .musicHeader{
    height: 40px;
    line-height: 60px;
@@ -79,7 +79,7 @@ label {
    outline: 0;
    cursor: pointer;
 }
-/* 顶部显示的内容 */
+/* box top */
 .boxAllshow{
    width: 130px;
    line-height: 20px;
@@ -103,7 +103,7 @@ label {
    border-radius: 5px;
 }
 
-/* 音乐盒身体行块 */
+/* box body */
 .musicBoxBody{
    height: 70px;
    padding: 0px 10px; 
@@ -131,7 +131,7 @@ label {
    padding-left:15px;
    overflow: hidden;
 }
-/* 音乐盒 脚部行块 */
+/* box footer */
 .musicBoxFooter{
    padding: 10px 0px 10px 10px;
    position: relative;
@@ -144,7 +144,7 @@ label {
    outline: 0;
    cursor: pointer;
 }
-/* 音量拖动条  外层div */
+/* sound range div */
 .soundRange{
    position:relative;
    top:-58px;
@@ -163,7 +163,7 @@ label {
    z-index: 0;
 }
 
-/* 音量滑动条 */
+/* sound range */
 .soundRange input[type='range']{
    width:60px;
    margin-left:25px; 
@@ -175,21 +175,21 @@ label {
 }
 .soundRange>input[type='range']::-webkit-slider-runnable-track {
 	height: 10px;
-    border-radius: 10px; /*将轨道设为圆角的*/
-    box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; /*轨道内置阴影效果*/
+    border-radius: 10px; 
+    box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; 
 }
-/* -------------------音量拖动圆---------------------- */
+/* -------------------volune silde---------------------- */
 .soundRange input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     height: 12px;
     width: 12px;
-    margin-top: 0px; /*使滑块超出轨道部分的偏移量相等*/
+    margin-top: 0px; 
     background: #ffffff; 
-    border-radius: 50%; /*外观设置为圆形*/
-    border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
-    box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
+    border-radius: 50%; 
+    border: solid 0.125em rgba(205, 224, 230, 0.5); 
+    box-shadow: 0 .125em .125em #3b4547; 
 }
-/* 在鼠标悬浮在播放样式时显现的p标签  样式设计 */
+
 .musicBoxFooter p{
    position: absolute;
    top:-5px;
@@ -198,7 +198,7 @@ label {
    background-color: #fff;
    border-radius: 3px;
 }
-/* 收藏音乐盒子 */
+/* collect box */
 .collect{
     white-space: nowrap;
     overflow: hidden;
@@ -243,7 +243,7 @@ label {
 	background-color: #B6C6D5;
 	color:#a11;
 }
-/* 数组所有音乐 */
+/* show ch music */
 .allShow{
    padding:10px 0px;
    position:absolute;
@@ -567,7 +567,7 @@ label {
          $(".musicPlay").trigger("click");
 		 }
       });
-      /* 列表循环下的上一首 */
+      /* 列表循環下的上一首 */
       
       var nowListliNum=0;
       $(".musicPrev3").click(function(){
@@ -633,7 +633,7 @@ label {
 		 }
       });
       
-      /* 点击下一首时切换音乐 */
+      /* click下一首按紐 */
       $(".musicNext").click(function(){
          nowMusicNum++;
          var nameElement = document.getElementById("listtype");
@@ -883,18 +883,18 @@ label {
                 $(this).parent().remove();
             }
          })
-         //是否删除所有收藏夹音乐
+         //是否删除所有收藏
          $(".removeAll").click(function(){
             if(window.confirm("清空收藏?")){
                 $(".collect ul").empty();
                 $(".collect").fadeOut(1000);
             }
          })
-         //显示是否删除收藏夹音乐提示
+         //show是否删除收藏
          $(".removeAll").hover(function(){
             $(".boxAllshow").text("刪除收藏").toggle();
          })
-         /* 收藏到的音乐 点击播放 */
+         /* 收藏list click play */
          $(".collect ul li").live('click',function(){
 		 var nameElement = document.getElementById("listtype");
 		var listtype = nameElement.value;
@@ -1045,28 +1045,7 @@ label {
 		 $(".musicBoxBody img").hover(function(){
             $(".boxAllshow").text("Show/Hide 收藏list").toggle();
          })
-/*------------ 点击顺序播放  切换到  随机播放   以及悬浮显示的提醒 --------------*/
-/*
-         $(".orderPlay").click(function(){//randomP
-            $(".MusicPlayStyle").hide().eq(0).show();
-            $(".randomP").show();      //将数组中的歌曲  取得数据然后  循环  播放
-            $(".inTurn").hide();
-            $(".listP").hide();
-            //清除顺序播放的定时器  不让其按顺序继续播放
-            clearInterval(InTurnTime);
-            //切换定时器
-            randomTime1=setInterval(function(){
-             if(myAudio.currentTime==myAudio.duration){
-                 $(".musicNext2").trigger("click");
-               }
-            },100);     
-         });
-         
-         $(".orderPlay").hover(function(){
-            $(".musicBoxFooter p").text("In sequence").toggle();
-         })
-		 
- */
+
  	    $(".musicBoxBody img").click(function(){
 			if($(".collect").is(":hidden")){
                 $(".collect").fadeIn(1000);
@@ -1077,7 +1056,7 @@ label {
     })
 
     
-    /* ------------------同步进度条-------------------- */ 
+    /* ------------------同步進度-------------------- */ 
      function nowPlay(){
         var musicRange=document.getElementById("musicRange");
         musicRange.style.backgroundSize=musicRange.value+"% 100%";
@@ -1087,7 +1066,7 @@ label {
 </head>
 
 	<div class="main">
-		<!-- 存放音乐播放器 -->
+		<!-- 存放播放器 -->
 		<div>
 			<audio id="myAudio">
 			   <source>
