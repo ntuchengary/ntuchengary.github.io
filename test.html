@@ -1,5 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>personal_music.html</title>
 
+<meta name="keywords" content="keyword1,keyword2,keyword3">
+<meta name="description" content="this is my page">
+<meta name="content-type" content="text/html; charset=UTF-8">
 
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<style type="text/css">
+*{border:0;margin: 0;padding: 0}
+body{
+  background-image:url('image/element.jpg');
+  background-size:cover;
+}
+label { 
+    color:white; 
+} 
+/* div main */
+.main{
+  padding: 50px 0px 0px 30px;
+}
+/* bar  */
+.musicBoxFooter a input[type='range']{
+  -webkit-appearance: none;
+  border-radius:20px;
+  cursor: pointer;
+  position: relative;
+  top:-5px;
+  width: 120px;
+  background:url('music_img/track.png')  no-repeat;
+  background-size:0% 100%;
+}
+/* bar roller */
+.musicBoxFooter input[type='range']::-webkit-slider-thumb {
+	-webkit-appearance: none;
+}
+/* bar  */
+.musicBoxFooter a input[type='range']::-webkit-slider-runnable-track {
+	height: 12px;
+    border-radius: 10px; /*round coner*/
+    box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; /*shadow*/
+}
+.musicBoxFooter input[type='range']:focus {
+	outline: none;
+}
+.musicBoxFooter a input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 12px;
+    width: 12px;
+    margin-top: 0px; /*使滑块超出轨道部分的偏移量相等*/
+    background: #ffffff; 
+    border-radius: 50%; /*外观设置为圆形*/
+    border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
+    box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
+    opacity:0.01;
+}
+/* musicbox */
+.musicBox{
+   width: 290px;
+   height:144px;
+   background-color: #404040;
+   border-radius: 12px;
+   box-shadow: 2px 2px black;
+}
+
+/* musicbox head */
+.musicHeader{
+   height: 40px;
+   line-height: 60px;
+   text-align: left;
+   padding: 0px 20px;
+}
+.musicHeader button{
+   display: inline-block;
+   width: 25px;
    height:25px;
    outline: 0;
    cursor: pointer;
